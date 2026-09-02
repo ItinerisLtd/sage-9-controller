@@ -1,28 +1,37 @@
 {
-  "name": "soberwp/controller",
+  "name": "itinerisltd/controller",
   "type": "package",
   "license": "MIT",
-  "description": "WordPress package to enable a basic controller when using Blade with Sage 9",
-  "homepage": "https://github.com/soberwp",
+  "description": "WordPress package to enable a basic controller when using Blade with Sage 9, maintained by Itineris to support legacy sites",
+  "homepage": "https://github.com/ItinerisLtd/sage-9-controller",
   "authors": [
     {
       "name": "Darren Jacoby",
       "email": "darren@jacoby.co.za",
       "homepage": "https://github.com/darrenjacoby"
+    },
+    {
+      "name": "codepuncher",
+      "email": "lee.hanbury@gmail.com",
+      "homepage": "https://github.com/codepuncher"
+    },
+    {
+      "name": "Itineris Limited",
+      "homepage": "https://github.com/ItinerisLtd"
     }
   ],
   "keywords": [
     "wordpress"
   ],
   "support": {
-    "issues": "https://github.com/soberwp/controller/issues"
+    "issues": "https://github.com/ItinerisLtd/sage-9-controller/issues"
   },
   "require": {
-    "php": ">=5.6.0",
-    "brain/hierarchy": "^2.4.0"
+    "php": ">=8.4",
+    "brain/hierarchy": "^3.0"
   },
   "require-dev": {
-    "squizlabs/php_codesniffer": "^3.2"
+    "squizlabs/php_codesniffer": "^3.7"
   },
   "autoload": {
     "psr-4": {
