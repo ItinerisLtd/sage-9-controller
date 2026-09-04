@@ -1,9 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Sober\Controller;
 
 use Sober\Controller\Utils;
 use Brain\Hierarchy\Hierarchy;
+use WP_Post;
+use WP_Query;
 
 class Loader
 {
@@ -136,6 +140,11 @@ class Loader
             // Get the template hierarchy from WordPress
             $templates = $this->hierarchy->getTemplates($wp_query);
 
+            $customTemplate = $this->getCustomTemplate($wp_query);
+            if (is_string($customTemplate)) {
+                array_unshift($templates, $customTemplate);
+            }
+
             // Reverse the templates returned from $this->hierarchy
             $templates = array_reverse($templates);
 
@@ -170,5 +179,29 @@ class Loader
     public function getClassesToRun()
     {
         return $this->classesToRun;
+    }
+
+    protected function getCustomTemplate(?WP_Query $wpQuery): ?string
+    {
+        if (!$wpQuery instanceof WP_Query || !$wpQuery->is_singular()) {
+            return null;
+        }
+
+        $post = $wpQuery->get_queried_object();
+        if (!$post instanceof WP_Post) {
+            return null;
+        }
+
+        $slug = get_page_template_slug($post);
+        if (!is_string($slug) || !preg_match('/\.(blade\.)?php$/', $slug)) {
+            return null;
+        }
+
+        $basename = preg_replace('/\.(blade\.)?php$/', '', basename($slug));
+        if (!is_string($basename) || $basename === '') {
+            return null;
+        }
+
+        return $basename . '.php';
     }
 }
